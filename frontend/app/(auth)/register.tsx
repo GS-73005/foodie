@@ -373,4 +373,30 @@ const styles = StyleSheet.create({
     color: '#FF6B6B',
     fontWeight: '600',
   },
+  locationButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#2a2a2a',
+    borderRadius: 12,
+    padding: 16,
+    gap: 12,
+    borderWidth: 2,
+    borderColor: '#FF6B6B',
+  },
+  locationButtonActive: {
+    borderColor: '#4CAF50',
+  },
+  locationTextContainer: {
+    flex: 1,
+  },
+  locationButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  locationAddress: {
+    color: '#999',
+    fontSize: 12,
+    marginTop: 4,
+  },
 });
