@@ -46,6 +46,12 @@
           "resizeMode": "contain",
           "backgroundColor": "#000"
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow Foodies Circle to use your location to set restaurant locations on the map."
+        }
       ]
     ],
     "experiments": {
