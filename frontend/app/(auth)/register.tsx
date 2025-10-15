@@ -260,6 +260,18 @@ export default function RegisterScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+
+      <Modal
+        visible={showMapPicker}
+        animationType="slide"
+        presentationStyle="fullScreen"
+      >
+        <MapLocationPicker
+          onLocationSelect={handleLocationSelect}
+          initialLocation={location || undefined}
+          onCancel={() => setShowMapPicker(false)}
+        />
+      </Modal>
     </KeyboardAvoidingView>
   );
 }
