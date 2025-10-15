@@ -46,6 +46,7 @@ export default function ProfileScreen() {
   const [loyaltyPoints, setLoyaltyPoints] = useState<any[]>([]);
   const [activeTab, setActiveTab] = useState<'posts' | 'promos' | 'loyalty'>('posts');
   const [loading, setLoading] = useState(true);
+  const [showMapPicker, setShowMapPicker] = useState(false);
 
   useEffect(() => {
     loadProfileData();
