@@ -606,4 +606,22 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
+  updateLocationButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#2a2a2a',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    marginTop: 12,
+    gap: 8,
+    borderWidth: 1,
+    borderColor: '#FF6B6B',
+  },
+  updateLocationText: {
+    color: '#FF6B6B',
+    fontSize: 14,
+    fontWeight: '600',
+  },
 });
