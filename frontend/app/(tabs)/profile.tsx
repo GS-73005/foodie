@@ -372,6 +372,18 @@ export default function ProfileScreen() {
           </View>
         )}
       </ScrollView>
+
+      <Modal
+        visible={showMapPicker}
+        animationType="slide"
+        presentationStyle="fullScreen"
+      >
+        <MapLocationPicker
+          onLocationSelect={handleLocationUpdate}
+          initialLocation={user?.restaurant_details?.location}
+          onCancel={() => setShowMapPicker(false)}
+        />
+      </Modal>
     </SafeAreaView>
   );
 }
