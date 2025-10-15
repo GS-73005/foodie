@@ -217,6 +217,30 @@ export default function RegisterScreen() {
             />
           </View>
 
+          {formData.user_type === 'Restaurant' && (
+            <TouchableOpacity
+              style={[styles.locationButton, location && styles.locationButtonActive]}
+              onPress={() => setShowMapPicker(true)}
+            >
+              <Ionicons 
+                name={location ? "checkmark-circle" : "location"} 
+                size={24} 
+                color={location ? "#4CAF50" : "#FF6B6B"} 
+              />
+              <View style={styles.locationTextContainer}>
+                <Text style={styles.locationButtonText}>
+                  {location ? 'Location Set' : 'Set Restaurant Location *'}
+                </Text>
+                {location && location.address && (
+                  <Text style={styles.locationAddress} numberOfLines={1}>
+                    {location.address}
+                  </Text>
+                )}
+              </View>
+              <Ionicons name="chevron-forward" size={20} color="#999" />
+            </TouchableOpacity>
+          )}
+
           <TouchableOpacity
             style={[styles.button, loading && styles.buttonDisabled]}
             onPress={handleRegister}
