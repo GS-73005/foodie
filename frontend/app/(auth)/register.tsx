@@ -10,12 +10,21 @@ import {
   Alert,
   ActivityIndicator,
   ScrollView,
+  Modal,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
 import { authAPI } from '../../services/api';
 import { useAuthStore } from '../../store/authStore';
+import MapLocationPicker from '../../components/MapLocationPicker';
+
+interface LocationData {
+  latitude: number;
+  longitude: number;
+  address?: string;
+  place_name?: string;
+}
 
 export default function RegisterScreen() {
   const router = useRouter();
@@ -29,6 +38,8 @@ export default function RegisterScreen() {
     bio: '',
   });
   const [loading, setLoading] = useState(false);
+  const [showMapPicker, setShowMapPicker] = useState(false);
+  const [location, setLocation] = useState<LocationData | null>(null);
 
   const handleRegister = async () => {
     if (!formData.email || !formData.password || !formData.profile_name || !formData.handle) {
@@ -41,9 +52,27 @@ export default function RegisterScreen() {
       return;
     }
 
+    // Check if restaurant has selected location
+    if (formData.user_type === 'Restaurant' && !location) {
+      Alert.alert('Error', 'Restaurants must set their location on the map');
+      return;
+    }
+
     setLoading(true);
     try {
-      const response = await authAPI.register(formData);
+      const registrationData = {
+        ...formData,
+        restaurant_details: formData.user_type === 'Restaurant' && location ? {
+          location: {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            address: location.address,
+            place_name: location.place_name,
+          }
+        } : undefined
+      };
+
+      const response = await authAPI.register(registrationData);
       const { token, ...userData } = response.data;
       
       await setToken(token);
@@ -55,6 +84,12 @@ export default function RegisterScreen() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleLocationSelect = (selectedLocation: LocationData) => {
+    setLocation(selectedLocation);
+    setShowMapPicker(false);
+    Alert.alert('Success', 'Location set successfully!');
   };
 
   return (
