@@ -28,6 +28,7 @@ export const authAPI = {
 export const userAPI = {
   getUser: (userId: string) => api.get(`/users/${userId}`),
   updateUser: (userId: string, data: any) => api.put(`/users/${userId}`, data),
+  updateLocation: (userId: string, data: any) => api.put(`/users/${userId}/location`, data),
   followUser: (userId: string) => api.post(`/users/${userId}/follow`),
   unfollowUser: (userId: string) => api.post(`/users/${userId}/unfollow`),
   searchUsers: (query: string, filterType?: string) => 
