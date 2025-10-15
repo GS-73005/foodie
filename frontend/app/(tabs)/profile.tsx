@@ -9,12 +9,14 @@ import {
   FlatList,
   Dimensions,
   Alert,
+  Modal,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuthStore } from '../../store/authStore';
 import { userAPI, authAPI, promoAPI, loyaltyAPI } from '../../services/api';
 import { useRouter } from 'expo-router';
+import MapLocationPicker from '../../components/MapLocationPicker';
 
 const { width } = Dimensions.get('window');
 const imageSize = width / 3 - 2;
