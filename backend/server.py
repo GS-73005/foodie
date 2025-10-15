@@ -107,6 +107,12 @@ class UserUpdate(BaseModel):
     avatar_base64: Optional[str] = None
     restaurant_details: Optional[Dict] = None
 
+class LocationUpdate(BaseModel):
+    latitude: float
+    longitude: float
+    address: Optional[str] = None
+    place_name: Optional[str] = None
+
 class PostCreate(BaseModel):
     image_base64: str
     caption: str
