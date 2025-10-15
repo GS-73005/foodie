@@ -236,6 +236,35 @@ async def update_user(user_id: str, update: UserUpdate, current_user: Dict = Dep
     
     return {"message": "User updated successfully"}
 
+@api_router.put("/users/{user_id}/location")
+async def update_location(user_id: str, location: LocationUpdate, current_user: Dict = Depends(get_current_user)):
+    if current_user["user_id"] != user_id:
+        raise HTTPException(status_code=403, detail="Not authorized")
+    
+    user = await db.users.find_one({"_id": ObjectId(user_id)})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    if user.get("user_type") != "Restaurant":
+        raise HTTPException(status_code=400, detail="Only restaurants can set locations")
+    
+    # Update restaurant_details with location
+    restaurant_details = user.get("restaurant_details", {})
+    restaurant_details["location"] = {
+        "latitude": location.latitude,
+        "longitude": location.longitude,
+        "address": location.address,
+        "place_name": location.place_name
+    }
+    
+    await db.users.update_one(
+        {"_id": ObjectId(user_id)},
+        {"$set": {"restaurant_details": restaurant_details}}
+    )
+    
+    return {"message": "Location updated successfully", "location": restaurant_details["location"]}
+
+
 @api_router.post("/users/{user_id}/follow")
 async def follow_user(user_id: str, current_user: Dict = Depends(get_current_user)):
     follower_id = current_user["user_id"]
