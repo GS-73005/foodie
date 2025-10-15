@@ -207,18 +207,29 @@ export default function ProfileScreen() {
             </View>
           </View>
 
-          {user.user_type === 'Restaurant' && user.restaurant_details && (
+          {user.user_type === 'Restaurant' && (
             <View style={styles.restaurantDetails}>
-              <Text style={styles.detailText}>
-                <Ionicons name="location" size={16} color="#999" />{' '}
-                {user.restaurant_details.address || 'No address'}
-              </Text>
-              {user.restaurant_details.contact_info && (
+              {user.restaurant_details?.location && (
+                <Text style={styles.detailText}>
+                  <Ionicons name="location" size={16} color="#999" />{' '}
+                  {user.restaurant_details.location.address || 'No address'}
+                </Text>
+              )}
+              {user.restaurant_details?.contact_info && (
                 <Text style={styles.detailText}>
                   <Ionicons name="call" size={16} color="#999" />{' '}
                   {user.restaurant_details.contact_info}
                 </Text>
               )}
+              <TouchableOpacity
+                style={styles.updateLocationButton}
+                onPress={() => setShowMapPicker(true)}
+              >
+                <Ionicons name="location" size={20} color="#FF6B6B" />
+                <Text style={styles.updateLocationText}>
+                  {user.restaurant_details?.location ? 'Update Location' : 'Set Location'}
+                </Text>
+              </TouchableOpacity>
             </View>
           )}
         </View>
