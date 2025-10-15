@@ -126,6 +126,25 @@ export default function ProfileScreen() {
     }
   };
 
+  const handleLocationUpdate = async (location: any) => {
+    if (!user) return;
+    
+    try {
+      await userAPI.updateLocation(user.user_id, {
+        latitude: location.latitude,
+        longitude: location.longitude,
+        address: location.address,
+        place_name: location.place_name,
+      });
+      
+      Alert.alert('Success', 'Location updated successfully!');
+      setShowMapPicker(false);
+      loadProfileData(); // Reload profile data
+    } catch (error: any) {
+      Alert.alert('Error', error.response?.data?.detail || 'Failed to update location');
+    }
+  };
+
   const handleLogout = async () => {
     Alert.alert('Logout', 'Are you sure you want to logout?', [
       { text: 'Cancel', style: 'cancel' },
